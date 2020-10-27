@@ -1,4 +1,6 @@
 import re
+import csv
+import pandas as pd
 
 import requests
 from bs4 import BeautifulSoup
@@ -43,6 +45,22 @@ for link in navLinks[1:11]:
             continue
         except KeyError:
             continue
+        temp = [title, str(x.contents[1].contents[1].contents[1].attrs['title']),
+                str(x.contents[1].contents[1].contents[1].attrs['href']),
+                str(x.contents[1].contents[5].contents[0].strip())]
+
+        # # opening the csv file in 'a+' mode
+        file = open('result.csv', 'a')
+        #
+        # # writing the data into the file
+        with file:
+            write = csv.writer(file)
+            write.writerow(temp)
+        # dict = {'Category': temp[0], 'Headline': temp[1], 'Link': temp[2], 'Detail': temp[3]}
+        # df = pd.DataFrame(dict,index=[0])
+        # saving the dataframe
+
+        # df.to_csv('GFG.csv')
     print('\n\n\n\n')
 
     # titles.append(x.children)
